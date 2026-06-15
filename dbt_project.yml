@@ -17,11 +17,11 @@ seeds:
       relation: true
       columns: true
 
-    lot3:
+    raw:
       +schema: seeds
       +tags: learn
 
-    lot6:
+    extended:
       +schema: seeds_ext
       +tags: extended
 

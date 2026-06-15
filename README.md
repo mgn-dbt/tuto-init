@@ -64,12 +64,12 @@ duck_tuto:
   outputs:
     dev:
       type: duckdb
-      path: 'C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop\offline\duck_tuto.duckdb'
+      path: '.\offline\duck_tuto.duckdb'
       schema: dbt_<username>
       threads: 4
       # threads: 1  (for log_query_path to work)
       #settings:
-      #  log_query_path: 'C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop\offline\duck_tuto_query.log'
+      #  log_query_path: '.\offline\duck_tuto_query.log'
 ```
 
 BigQuery profile must be named "default" for dbt cloud.
