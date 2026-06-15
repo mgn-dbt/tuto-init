@@ -1,5 +1,3 @@
-{{ config(materialized='table', alias='payments') }}
-
 with
 source as (
     select * from {{ ref('raw_payments') }}

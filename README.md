@@ -8,6 +8,8 @@ There are 2 batches of tables used in DBT tutorials.
 
 This project is for loading Jaffle data quickly into BigQuery, PostgreSQL or DuckDB.
 
+Cf [Databases](./databases.md)
+
 ## SCOOP
 
 I use SCOOP under Windows and Powershell Core with no admin rights.  
@@ -26,7 +28,7 @@ vscode           1.114.0      extras
 
 ## DBT Profiles
 
-NB : In the following, replace <username> by your own $env:USERNAME
+NB : In the following, replace `<username>` by your own $env:USERNAME
 
 ($env:USERPROFILE\.dbt\profiles.yml)
 
@@ -77,13 +79,8 @@ Beware threads must be set to 1 if log_query_path is used.
 
 NB : offline directory is in .gitignore file to keep duckdb files out of version.
 
-Cf [Databases](./databases.md)
+## Exec
 
-## exec
-
-dbt seed --full-refresh --profile default     (for BigQuery with dbt fusion or dbt cloud)  
-dbt seed --full-refresh --profile pg          (for PostgreSql with dbt core)  
-dbt seed --full-refresh --profile duck_tuto   (for Duckdb with dbt core)
-
-
-
+dbt build --profile default     (for BigQuery with dbt fusion or dbt cloud)  
+dbt build --profile pg          (for PostgreSql with dbt core)  
+dbt build --profile duck_tuto   (for Duckdb with dbt core)

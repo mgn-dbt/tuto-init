@@ -1,5 +1,3 @@
-{{ config(materialized='table', alias='customers') }}
-
 with
 source as (
     select * from {{ ref('raw_customers') }}

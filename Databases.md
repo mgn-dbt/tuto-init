@@ -122,7 +122,6 @@ Test SSL/TLS connection with pgadmin 4
 
 ![pgadmin 4 params](pgadmin4params.png)
 
-
 ## Duckdb
 
 Don't try using vscode with duckdb.  
@@ -203,4 +202,3 @@ Documented commands (type help <topic>):
 EOF    compile  deps  help  parse  run   snapshot
 build  debug    exit  list  quit   seed  test
 ```
-

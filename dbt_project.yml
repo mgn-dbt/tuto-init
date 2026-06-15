@@ -12,7 +12,7 @@ clean-targets:
   - "dbt_packages"
 
 seeds:
-  jaffle_shop_external:
+  jaffle_shop_init:
     +persist_docs:
       relation: true
       columns: true
@@ -22,29 +22,19 @@ seeds:
       +tags: learn
 
     lot6:
-      +schema: seeds
+      +schema: seeds_ext
       +tags: extended
 
 models:
-  jaffle_shop_external:
+  jaffle_shop_init:
     +persist_docs:
       relation: true
       columns: true
 
-    prep_jaffle_shop:
+    prep:
       +materialized: table
-      +schema: src_jaffle_shop
+      +schema: src
       +tags: learn
-
-    prep_stripe:
-      +materialized: table
-      +schema: src_stripe
-      +tags: learn
-
-    prep_extended:
-      +materialized: table
-      +schema: src_extended
-      +tags: extended
 
 on-run-end:
   - "{% do grant_select(role='lecteur') %}"
