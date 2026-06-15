@@ -165,7 +165,20 @@ Don't forget to detach from database before exiting.
 
 .exit (to quit)
 
-## Interactive shell
+#### Export notebook
+
+```sql
+copy (
+  select
+    "json"
+  from _duckdb_ui.notebook_versions
+  where 1=1
+    and title = 'MyNotebook'
+    and expires is null
+) to 'exported-notebook.json';
+```
+
+### Interactive shell
 
 Cf [interactive shell](https://github.com/duckdb/dbt-duckdb/tree/master#interactive-shell)
 
