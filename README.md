@@ -77,7 +77,7 @@ Beware threads must be set to 1 if log_query_path is used.
 
 NB : offline directory is in .gitignore file to keep duckdb files out of version.
 
-Cf [Databases]databases.md
+Cf [Databases](./databases.md)
 
 ## exec
 
