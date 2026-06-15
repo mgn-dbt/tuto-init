@@ -1,0 +1,54 @@
+name: 'jaffle_shop_external'
+version: '1.0.0'
+config-version: 2
+
+profile: pg
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+macro-paths: ["macros"]
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+seeds:
+  jaffle_shop_external:
+    +persist_docs:
+      relation: true
+      columns: true
+
+    lot3:
+      +schema: seeds
+      +tags: learn
+
+    lot6:
+      +schema: seeds
+      +tags: extended
+
+models:
+  jaffle_shop_external:
+    +persist_docs:
+      relation: true
+      columns: true
+
+    prep_jaffle_shop:
+      +materialized: table
+      +schema: src_jaffle_shop
+      +tags: learn
+
+    prep_stripe:
+      +materialized: table
+      +schema: src_stripe
+      +tags: learn
+
+    prep_extended:
+      +materialized: table
+      +schema: src_extended
+      +tags: extended
+
+on-run-end:
+  - "{% do grant_select(role='lecteur') %}"
+
+flags:
+  require_unique_project_resource_names: true
+
