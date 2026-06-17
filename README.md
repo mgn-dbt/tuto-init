@@ -8,11 +8,52 @@ There are 2 batches of tables used in DBT tutorials.
 
 This project is for loading Jaffle data quickly into BigQuery, PostgreSQL or DuckDB.
 
-Cf [Databases](./docs/Databases.md)
-
 Cf [Environment](./docs/Environment.md)
 
-## DBT Profiles
+Cf [Databases](./docs/Databases.md)
+
+Cf [VScode](./docs/VScode.md)
+
+## DBT
+
+Beware :  
+Upgrade the dbt vscode extension first.  
+Don't upgrade dbt fusion first.  
+Let VScode propose the right dbt fusion version.
+
+You can choose the version of the dbt vscode extension.  
+Under the dbt vscode extension page : `Uninstall / Install Specific Version`
+
+Compatibility between the dbt fusion and the dbt vscode extension is important.  
+Don't install a dbt fusion version ahead of the dbt vscode extension.
+
+![dbt vscode extension](./docs/dbt_vscode_extension.png)
+
+```powershell
+iwr -uri https://public.cdn.getdbt.com/fs/install/install.ps1 -OutFile install.ps1
+& install.ps1 -Version "2.0.0-preview.177"
+Remove-Item install.ps1
+```
+
+or if fusion is already installed
+
+```powershell
+& install.ps1 -Update -Version "2.0.0-preview.177"
+```
+
+Check your PATH environment variable after using install.ps1.
+
+NB : Fusion installation process updates the powershell profile files :  
+Cf $env:USERPROFILE\Documents\Powershell\Microsoft.PowerShell_profile.ps1  
+or $env:USERPROFILE\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1  
+It ensure dbtf alias is created.
+
+Beware package-lock.yml yaml file, dbt fusion upgrade it with a bad format for dbt cloud.  
+After executing "dbt deps" under source control "Discard changes" for package-lock.json.  
+Keep dbt cloud version of package-lock.json for compatibility.  
+Bug or new format ???
+
+### Profiles.yml
 
 Set environment variables.  
 Cf [Environment variables](./docs/Environment.md#environment-variables)  

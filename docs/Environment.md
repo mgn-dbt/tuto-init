@@ -68,7 +68,7 @@ Get-ChildItem env:DBT*
 
 SQLFluff requires Python and Dbt-core.  
 Postgres only works in Dbt-core (SQLFluff venv).  
-In VSCode it means using Pwsh_vdbt terminal.
+In VSCode it means using Pwsh_vdbt terminal. CF [VScode](./VScode.md#user-configuration)
 
 Packages installed in the sqlfluff venv:
 
