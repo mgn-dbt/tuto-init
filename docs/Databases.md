@@ -181,31 +181,6 @@ duckdbt (jaffle_shop_init)> parse
 13:00:08  Unable to do partial parsing because a project dependency has been added
 13:00:09  Performance info: C:\Users\<username>\SCOOP\persist\_dev_\dbt\jaffle_shop_init\target\perf_info.json
 duckdbt (jaffle_shop_init)>
-duckdbt (jaffle_shop_init)> list
-13:05:24  Running with dbt=1.11.11
-13:05:24  Registered adapter: duckdb=1.10.1
-13:05:24  Unable to do partial parsing because config vars, config profile, or config target have changed
-13:05:24  Unable to do partial parsing because profile has changed
-13:05:24  Unable to do partial parsing because a project dependency has been added
-jaffle_shop_init.prep.extended__customers
-jaffle_shop_init.prep.extended__items
-jaffle_shop_init.prep.extended__orders
-jaffle_shop_init.prep.extended__products
-jaffle_shop_init.prep.extended__stores
-jaffle_shop_init.prep.extended__supplies
-jaffle_shop_init.prep.jaffle_shop__customers
-jaffle_shop_init.prep.jaffle_shop__orders
-jaffle_shop_init.prep.stripe__payments
-jaffle_shop_init.extended.customers
-jaffle_shop_init.extended.items
-jaffle_shop_init.extended.orders
-jaffle_shop_init.extended.products
-jaffle_shop_init.raw.raw_customers
-jaffle_shop_init.raw.raw_orders
-jaffle_shop_init.raw.raw_payments
-jaffle_shop_init.extended.stores
-jaffle_shop_init.extended.supplies
-duckdbt (jaffle_shop_init)>
 duckdbt (jaffle_shop_init)> help
 
 Documented commands (type help <topic>):
