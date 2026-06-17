@@ -13,15 +13,15 @@ NB : Beware Zscaler if you have it.
 
 The 2 Zscaler certificates must be included in the cacert.pem npm certificate store.
 
-```powershell
-Cf $env:USERPROFILE\.npmrc
+Cf `$env:USERPROFILE\.npmrc`
 
+```conf
 cafile=<path_to>/cacert.pem
 ```
 
 ## User configuration
 
-The user configuration file contains personal 
+The user configuration file contains personal choices.
 
 cf `$env:USERPROFILE\SCOOP\apps\vscode\current\data\user-data\User\profiles\xxxxxxxx\settings.json`
 
