@@ -8,15 +8,14 @@ There are 2 batches of tables used in DBT tutorials.
 
 This project is for loading Jaffle data quickly into BigQuery, PostgreSQL or DuckDB.
 
-Cf [Databases](./Databases.md)
+Cf [Databases](./docs/Databases.md)
 
-Cf [Environment](./Environement.md)
+Cf [Environment](./docs/Environment.md)
 
 ## DBT Profiles
 
-Set environment variables.
-Cf [environment](./Environment.md#environment-variables)
-
+Set environment variables.  
+Cf [Environment variables](./docs/Environment.md#environment-variables)  
 Cf [env_var](https://docs.getdbt.com/reference/dbt-jinja-functions/env_var)
 
 Content of `$env:USERPROFILE\.dbt\profiles.yml`
@@ -91,7 +90,7 @@ duckdb:
 
 Dbt Cloud BigQuery connection
 
-![Dbt Cloud BigQuery connection](./dbt_dev_connection.png)
+![Dbt Cloud BigQuery connection](./docs/dbt_dev_connection.png)
 
 BigQuery profile must be named "default" for Dbt Cloud.  
 Cf Dbt Cloud BigQuery connection above.
@@ -103,6 +102,11 @@ NB : duckdb database path must be absolute to share the database between dbt pro
 
 ## Exec
 
-dbt build --profile default     (for BigQuery with dbt fusion or dbt cloud)  
-dbt build --profile pg          (for PostgreSql with dbt core)  
-dbt build --profile duckdb      (for Duckdb with dbt core)
+```Powershell
+# for BigQuery with dbt fusion or dbt cloud
+dbt build --profile default
+# for PostgreSql with dbt core
+dbt build --profile pg
+# for Duckdb with dbt core
+dbt build --profile duckdb
+```

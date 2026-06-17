@@ -23,7 +23,7 @@
 
             {% endfor %}
         {% else %}
-            {{ log('NOT IMPLEMENTED for ' ~ target.type, info=True) }}
+            {{ log('grant select NOT IMPLEMENTED for ' ~ target.type, info=True) }}
         {% endif %}
     {% endif %}
 

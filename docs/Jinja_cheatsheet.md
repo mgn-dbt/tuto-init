@@ -110,14 +110,14 @@ Sql comments do.
 ## Expressions
 
 ```jinja
-{{ ... }} e.g.: ref
+{{ ... }} e.g.: ref(), source(), log()
 ```
 
 ## Jinja Filters
 
 [jinja functions](https://docs.getdbt.com/reference/dbt-jinja-functions-context-variables)
 
-### cast
+### Cast
 
 ```jinja
 {% set my_str_var = "2020" %}

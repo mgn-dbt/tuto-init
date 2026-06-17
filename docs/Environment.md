@@ -22,7 +22,7 @@ Cf [dbt-metricflow](https://pypi.org/project/dbt-metricflow/)
 To install a specific python version :
 
 ```Powershell
-cd $(join-path $env:USERPROFILE SCOOP buckets main bucket)
+Set-Location $(join-path $env:USERPROFILE SCOOP buckets main bucket)
 git log --grep "version 3.13" --oneline python.json
 scoop install python@3.13.7
 New-Item $(join-path $env:USERPROFILE SCOOP persist python scripts donotdelete.txt) -type file
@@ -49,8 +49,8 @@ Cf
 [CLI Flags](https://docs.getdbt.com/reference/global-configs/about-global-configs)
 
 NB : In the following, replace  
-dbt-jaffle-shop-xxxxxx by your Bigquery project name  
-dbt-jaffle-shop-xxxxxx-yyyyyyyyyyyy.json by your Bigquery keyfile  
+dbt-jaffle-shop-xxxxxx by your BigQuery project name  
+dbt-jaffle-shop-xxxxxx-yyyyyyyyyyyy.json by your BigQuery keyfile  
 
 Set your environment variables :
 
@@ -61,7 +61,7 @@ Set your environment variables :
 [Environment]::SetEnvironmentVariable("DBT_PG_ROOT_CERT", $(join-path $env:USERPROFILE SCOOP persist ssl mkcert rootCA.pem), [System.EnvironmentVariableTarget]::User)
 [Environment]::SetEnvironmentVariable("DBT_DUCKDB_DATABASE", $(join-path $env:USERPROFILE SCOOP persist _dev_ dbt tuto.duckdb), [System.EnvironmentVariableTarget]::User)
 
-ls env:DBT*
+Get-ChildItem env:DBT*
 ```
 
 ## Python venvs

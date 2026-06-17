@@ -23,13 +23,13 @@ Cf [Environment](./Environment.md)
 
 Start instance :
 
-```cmd
+```Powershell
 pg_ctl.exe start
 ```
 
 Connect as DBA :
 
-```cmd
+```Powershell
 chcp 1252
 psql.exe -U postgres
 ```
@@ -86,8 +86,8 @@ PostgreSQL connection should be established under SSL/TLS for security.
 
 Cf [mkcert](https://github.com/filosottile/mkcert)
 
-```cmd
-$env:CAROOT='C:\Users\<username>\SCOOP\persist\ssl\mkcert'
+```Powershell
+$env:CAROOT=Join-Path $env:USERPROFILE SCOOP persist ssl mkcert
 mkcert -install
 mkcert -cert-file (Join-Path $(mkcert -CAROOT) "server.cert.pem") -key-file (Join-Path $(mkcert -CAROOT) "server.key.pem") localhost $(hostname).ToLower()
 ```
@@ -125,7 +125,7 @@ hostnossl   all             all             ::/0                    reject
 
 Restart instance
 
-```cmd
+```Powershell
 pg_ctl.exe restart
 ```
 
@@ -133,8 +133,8 @@ pg_ctl.exe restart
 
 Solve embeded python certificate error
 
-```powershell
-& "<path_to>\postgresql\18.3\pgAdmin 4\python\python.exe" -m pip install pip_system_certs
+```Powershell
+& (Join-Path $env:USERPROFILE SCOOP apps postgresql current "pgAdmin 4" python python.exe) -m pip install pip_system_certs
 ```
 
 Test SSL/TLS connection with pgadmin 4
@@ -164,34 +164,49 @@ It opens duckdb ui in parallel with a command line to launch dbt commands.
 
 Cf [interactive shell](https://github.com/duckdb/dbt-duckdb/tree/master#interactive-shell)
 
-In python sqlfluff venv and in duckdb git branch :  
+In python sqlfluff venv :
+
+```Powershell
+& (join-path $env:USERPROFILE SCOOP persist python venvs sqlfluff Scripts activate.ps1)
 python -m dbt.adapters.duckdb.cli --profile duckdb
+```
 
-```cmd
-duckdbt (jaffle_shop_duck)> deps
-07:49:42  Running with dbt=1.10.20
-07:49:44  Installing dbt-labs/dbt_utils
-07:49:46  Installed from version 1.3.3
-07:49:46  Up to date!
-07:49:46  Installing dbt-labs/audit_helper
-07:49:47  Installed from version 0.13.0
-07:49:47  Up to date!
-07:49:47  Installing godatadriven/dbt_date
-07:49:47  Installed from version 0.17.2
-07:49:47  Up to date!
-07:49:47  Installing metaplane/dbt_expectations
-07:49:50  Installed from version 0.10.10
-07:49:50  Up to date!
-07:49:50  Installing https://github.com/tnightengale/dbt-meta-testing.git
-07:49:54  Installed from revision b05df7ae6158a63e0ec966550c4217e20067f2f7
-
-duckdbt (jaffle_shop_duck)> parse
-07:49:58  Running with dbt=1.10.20
-07:49:58  Registered adapter: duckdb=1.10.1
-07:49:59  Unable to do partial parsing because saved manifest not found. Starting full parse.
-07:50:02  Performance info: C:\Users\<username>\SCOOP\persist\_dev_\dbt\jaffle_shop_duck\target\perf_info.json
-
-duckdbt (jaffle_shop_duck)> help
+```txt
+Welcome to the duckdbt shell. Type help or ? to list commands.
+duckdbt (jaffle_shop_init)> parse
+13:00:08  Running with dbt=1.11.11
+13:00:08  Registered adapter: duckdb=1.10.1
+13:00:08  Unable to do partial parsing because config vars, config profile, or config target have changed
+13:00:08  Unable to do partial parsing because profile has changed
+13:00:08  Unable to do partial parsing because a project dependency has been added
+13:00:09  Performance info: C:\Users\<username>\SCOOP\persist\_dev_\dbt\jaffle_shop_init\target\perf_info.json
+duckdbt (jaffle_shop_init)>
+duckdbt (jaffle_shop_init)> list
+13:05:24  Running with dbt=1.11.11
+13:05:24  Registered adapter: duckdb=1.10.1
+13:05:24  Unable to do partial parsing because config vars, config profile, or config target have changed
+13:05:24  Unable to do partial parsing because profile has changed
+13:05:24  Unable to do partial parsing because a project dependency has been added
+jaffle_shop_init.prep.extended__customers
+jaffle_shop_init.prep.extended__items
+jaffle_shop_init.prep.extended__orders
+jaffle_shop_init.prep.extended__products
+jaffle_shop_init.prep.extended__stores
+jaffle_shop_init.prep.extended__supplies
+jaffle_shop_init.prep.jaffle_shop__customers
+jaffle_shop_init.prep.jaffle_shop__orders
+jaffle_shop_init.prep.stripe__payments
+jaffle_shop_init.extended.customers
+jaffle_shop_init.extended.items
+jaffle_shop_init.extended.orders
+jaffle_shop_init.extended.products
+jaffle_shop_init.raw.raw_customers
+jaffle_shop_init.raw.raw_orders
+jaffle_shop_init.raw.raw_payments
+jaffle_shop_init.extended.stores
+jaffle_shop_init.extended.supplies
+duckdbt (jaffle_shop_init)>
+duckdbt (jaffle_shop_init)> help
 
 Documented commands (type help <topic>):
 ========================================
@@ -201,24 +216,17 @@ build  debug    exit  list  quit   seed  test
 
 ### Duckdb ui
 
-From the projet root directory
+Launching :
 
-```cmd
-duckdb.exe -ui
+```Powershell
+duckdb.exe -ui (join-path $env:USERPROFILE SCOOP persist _dev_ dbt tuto.duckdb)
 ```
 
 ```sql
-attach '.\offline\tuto.duckdb' as tuto;
 use tuto;
-
 SELECT * FROM duckdb_settings();
-
-detach tuto;
+.exit
 ```
-
-Don't forget to detach from database before exiting.
-
-.exit (to quit)
 
 #### Export notebook
 
