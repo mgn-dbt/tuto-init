@@ -1,6 +1,25 @@
 # Databases
 
+## BigQuery
+
+BigQuery can be used in Dbt Fusion and Dbt-core.
+
+[Specific BigQuery](https://docs.getdbt.com/reference/resource-configs/bigquery-configs)
+
 ## PostgreSQL
+
+PostgreSQL can only be used in Dbt-core.
+
+[Specific PostgreSQL](https://docs.getdbt.com/reference/resource-configs/postgres-configs)
+
+### in Podman
+
+Cf [dbt-podman](https://github.com/mgn-dbt/dbt-podman)
+
+### in SCOOP
+
+For PostgreSQL in SCOOP, Dbt-core can be installed in a python venv.  
+Cf [Environment](./Environment.md)
 
 Start instance :
 
@@ -15,7 +34,7 @@ chcp 1252
 psql.exe -U postgres
 ```
 
-### create role, database and schemas
+#### Create roles and database
 
 ```sql
 set password_encryption = 'scram-sha-256';
@@ -73,7 +92,7 @@ mkcert -install
 mkcert -cert-file (Join-Path $(mkcert -CAROOT) "server.cert.pem") -key-file (Join-Path $(mkcert -CAROOT) "server.key.pem") localhost $(hostname).ToLower()
 ```
 
-### postgresql.conf and pg_hba.conf
+#### postgresql.conf and pg_hba.conf
 
 Add this at the end of postgresql.conf
 
@@ -110,7 +129,7 @@ Restart instance
 pg_ctl.exe restart
 ```
 
-### pgadmin 4
+#### pgadmin 4
 
 Solve embeded python certificate error
 
@@ -124,65 +143,29 @@ Test SSL/TLS connection with pgadmin 4
 
 ## Duckdb
 
-Don't try using vscode with duckdb.  
-Duckdb is locked by the process connected to it.  
-Only one process can read the database so vscode dbt extension lock it with the Language Server.  
+Duckdb can only be used in Dbt-core.
 
-To go arround this problem, you have to kill the Language Server with Process explorer.  
-But you'll still have lock problems.  
-So use another editor to work on develop_duck git branch.  
+[Specific Duckdb](https://docs.getdbt.com/reference/resource-configs/duckdb-configs)
+
+For Duckdb in SCOOP, Dbt-core can be installed in a python venv.  
+Cf [Environment](./Environment.md)
+
+Don't try using vscode with Duckdb.  
+The Duckdb database is locked by the process connected to it.  
+Only one process can read the database so vscode dbt extension lock it with the Language Server.  
+There is no workaround.
 
 ![language server process](language_server.png)
 
-Use duckdb ui, or even better, use duckdb interactive shell (it opens duckdb ui)  
+Use Duckdb interactive shell.  
+It opens duckdb ui in parallel with a command line to launch dbt commands.  
 
-In python sqlfluff venv :
-
-```powershell
-& <path_to>\venvs\sqlfluff\Scripts\activate.ps1
-md C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop_duck
-md C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop_duck\offline
-cd C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop_duck
-
-git clone https://github.com/mgn-dbt/tutorial .
-git checkout develop_duck
-```
-
-### Duckdb ui
-
-duckdb.exe -ui
-
-```sql
-attach 'c:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop_duck\offline\duck_tuto.duckdb' as duck_tuto;
-use duck_tuto;
-
-SELECT * FROM duckdb_settings();
-
-detach duck_tuto;
-```
-
-Don't forget to detach from database before exiting.
-
-.exit (to quit)
-
-#### Export notebook
-
-```sql
-copy (
-  select
-    "json"
-  from _duckdb_ui.notebook_versions
-  where 1=1
-    and title = 'MyNotebook'
-    and expires is null
-) to 'exported-notebook.json';
-```
-
-### Interactive shell
+### Duckdb interactive shell
 
 Cf [interactive shell](https://github.com/duckdb/dbt-duckdb/tree/master#interactive-shell)
 
-python -m dbt.adapters.duckdb.cli --profile duck_tuto
+In python sqlfluff venv and in duckdb git branch :  
+python -m dbt.adapters.duckdb.cli --profile duckdb
 
 ```cmd
 duckdbt (jaffle_shop_duck)> deps
@@ -206,7 +189,7 @@ duckdbt (jaffle_shop_duck)> parse
 07:49:58  Running with dbt=1.10.20
 07:49:58  Registered adapter: duckdb=1.10.1
 07:49:59  Unable to do partial parsing because saved manifest not found. Starting full parse.
-07:50:02  Performance info: C:\Users\<username>\SCOOP\_dev_\dbt\jaffle_shop_duck\target\perf_info.json
+07:50:02  Performance info: C:\Users\<username>\SCOOP\persist\_dev_\dbt\jaffle_shop_duck\target\perf_info.json
 
 duckdbt (jaffle_shop_duck)> help
 
@@ -214,4 +197,38 @@ Documented commands (type help <topic>):
 ========================================
 EOF    compile  deps  help  parse  run   snapshot
 build  debug    exit  list  quit   seed  test
+```
+
+### Duckdb ui
+
+From the projet root directory
+
+```cmd
+duckdb.exe -ui
+```
+
+```sql
+attach '.\offline\tuto.duckdb' as tuto;
+use tuto;
+
+SELECT * FROM duckdb_settings();
+
+detach tuto;
+```
+
+Don't forget to detach from database before exiting.
+
+.exit (to quit)
+
+#### Export notebook
+
+```sql
+copy (
+  select
+    "json"
+  from _duckdb_ui.notebook_versions
+  where 1=1
+    and title = 'MyNotebook'
+    and expires is null
+) to 'exported-notebook.json';
 ```
