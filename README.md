@@ -48,11 +48,6 @@ Cf $env:USERPROFILE\Documents\Powershell\Microsoft.PowerShell_profile.ps1
 or $env:USERPROFILE\Documents\WindowsPowershell\Microsoft.PowerShell_profile.ps1  
 It ensure dbtf alias is created.
 
-Beware package-lock.yml yaml file, dbt fusion upgrade it with a bad format for dbt cloud.  
-After executing "dbt deps" under source control "Discard changes" for package-lock.json.  
-Keep dbt cloud version of package-lock.json for compatibility.  
-Bug or new format ???
-
 ### Profiles.yml
 
 Set environment variables.  
