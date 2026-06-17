@@ -103,10 +103,22 @@ NB : duckdb database path must be absolute to share the database between dbt pro
 ## Exec
 
 ```Powershell
-# for BigQuery with dbt fusion or dbt cloud
+# for BigQuery with dbt fusion
 dbt build --profile default
-# for PostgreSql with dbt core
-dbt build --profile pg
-# for Duckdb with dbt core
+# for Duckdb with dbt fusion
 dbt build --profile duckdb
+```
+
+```Powershell
+# enter sqlfluff venv
+& (join-path $env:USERPROFILE SCOOP persist python venvs sqlfluff Scripts activate.ps1)
+
+# for PostgreSql with dbt-core
+dbt build --profile pg
+# for BigQuery with dbt-core
+dbt build --profile default
+# for Duckdb with dbt-core
+dbt build --profile duckdb
+
+deactivate
 ```

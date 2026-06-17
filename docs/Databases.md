@@ -143,21 +143,20 @@ Test SSL/TLS connection with pgadmin 4
 
 ## Duckdb
 
-Duckdb can only be used in Dbt-core.
+Duckdb can be used in Dbt Fusion and Dbt-core.
+Duckdb interactive shell only works in sqlfluff venv though.
+Cf [Environment](./Environment.md)
 
 [Specific Duckdb](https://docs.getdbt.com/reference/resource-configs/duckdb-configs)
 
-For Duckdb in SCOOP, Dbt-core can be installed in a python venv.  
-Cf [Environment](./Environment.md)
-
-Don't try using vscode with Duckdb.  
+Don't try using VScode with Duckdb.  
 The Duckdb database is locked by the process connected to it.  
-Only one process can read the database so vscode dbt extension lock it with the Language Server.  
+Only one process can read the database so VScode dbt extension lock it with the Language Server.  
 There is no workaround.
 
 ![language server process](language_server.png)
 
-Use Duckdb interactive shell.  
+Use Duckdb interactive shell instead.  
 It opens duckdb ui in parallel with a command line to launch dbt commands.  
 
 ### Duckdb interactive shell
@@ -189,18 +188,56 @@ EOF    compile  deps  help  parse  run   snapshot
 build  debug    exit  list  quit   seed  test
 ```
 
+### Duckdb CLI
+
+Launching :
+
+```Powershell
+duckdb.exe (join-path $env:USERPROFILE SCOOP persist _dev_ dbt tuto.duckdb)
+```
+
+```sql
+tuto D .tables raw%
+ ────────────────────────────── tuto ───────────────────────────────
+ ───────────────────────── dbt_tuto_seeds ──────────────────────────
+┌───────────────────────┐┌────────────────────┐┌────────────────────┐
+│     raw_payments      ││     raw_orders     ││   raw_customers    │
+│                       ││                    ││                    │
+│ id            bigint  ││ id         bigint  ││ id         bigint  │
+│ orderid       bigint  ││ user_id    bigint  ││ first_name varchar │
+│ paymentmethod varchar ││ order_date date    ││ last_name  varchar │
+│ status        varchar ││ status     varchar ││                    │
+│ amount        bigint  ││                    ││      102 rows      │
+│ created       date    ││      99 rows       │└────────────────────┘
+│                       │└────────────────────┘
+│       120 rows        │
+└───────────────────────┘
+tuto D select * from dbt_tuto_seeds.raw_payments limit 10;
+┌───────┬─────────┬───────────────┬─────────┬────────┬────────────┐
+│  id   │ orderid │ paymentmethod │ status  │ amount │  created   │
+│ int64 │  int64  │    varchar    │ varchar │ int64  │    date    │
+├───────┼─────────┼───────────────┼─────────┼────────┼────────────┤
+│     1 │       1 │ credit_card   │ success │   1000 │ 2018-01-01 │
+│     2 │       2 │ credit_card   │ success │   2000 │ 2018-01-02 │
+│     3 │       3 │ coupon        │ success │    100 │ 2018-01-04 │
+│     4 │       4 │ coupon        │ success │   2500 │ 2018-01-05 │
+│     5 │       5 │ bank_transfer │ fail    │   1700 │ 2018-01-05 │
+│     6 │       5 │ bank_transfer │ success │   1700 │ 2018-01-05 │
+│     7 │       6 │ credit_card   │ success │    600 │ 2018-01-07 │
+│     8 │       7 │ credit_card   │ success │   1600 │ 2018-01-09 │
+│     9 │       8 │ credit_card   │ success │   2300 │ 2018-01-11 │
+│    10 │       9 │ gift_card     │ success │   2300 │ 2018-01-12 │
+└───────┴─────────┴───────────────┴─────────┴────────┴────────────┘
+  10 rows                                               6 columns
+tuto D .quit
+```
+
 ### Duckdb ui
 
 Launching :
 
 ```Powershell
 duckdb.exe -ui (join-path $env:USERPROFILE SCOOP persist _dev_ dbt tuto.duckdb)
-```
-
-```sql
-use tuto;
-SELECT * FROM duckdb_settings();
-.exit
 ```
 
 #### Export notebook
