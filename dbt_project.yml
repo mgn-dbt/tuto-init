@@ -17,9 +17,9 @@ seeds:
       relation: true
       columns: true
 
-    raw:
+    simple:
       +schema: seeds
-      +tags: learn
+      +tags: simple
 
     extended:
       +schema: seeds_ext
@@ -34,11 +34,16 @@ models:
     prep:
       +materialized: table
       +schema: src
-      +tags: learn
+      simple:
+        +tags: simple
+      extended:
+        +tags: extended
 
 on-run-end:
   - "{% do grant_select(role='lecteur') %}"
 
 flags:
   require_unique_project_resource_names: true
-
+# 2 seeds can't have the same filename
+# a seed and a model can't have the same name
+# use alias to rename the table if seed filename is not what you expect

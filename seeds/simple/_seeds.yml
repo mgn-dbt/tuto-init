@@ -1,6 +1,8 @@
 seeds:
   - name: raw_customers
     description: raw customers
+    config:
+      alias: customers
     columns:
       - name: id
         description: customer id
@@ -11,6 +13,8 @@ seeds:
 
   - name: raw_orders
     description: raw orders
+    config:
+      alias: orders
     columns:
       - name: id
         description: order id
@@ -23,6 +27,8 @@ seeds:
 
   - name: raw_payments
     description: raw payments
+    config:
+      alias: payments
     columns:
       - name: id
         description: payment id
